@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# encoding: utf-8
 
 # TwitBeeb
 # By Barney Livingston
@@ -22,11 +23,14 @@ OAUTH_TOKEN=""
 OAUTH_TOKEN_SECRET=""
 require "twitbeeb_oauth_params"
 
-SEARCH = "#DMMF12"
+SEARCH = "#mmfbrs"
 SUFFIX = " #{SEARCH}"
 # Derby Old Silk Mill:
-LAT = 52.925838
-LONG = -1.475765
+#LAT = 52.925838
+#LONG = -1.475765
+# Bristol M Shed
+LAT = 51.447796
+LONG = -2.597993
 
 # BBC VDU codes
 # http://central.kaserver5.org/Kasoft/Typeset/BBC/Ch34.html
@@ -63,8 +67,8 @@ while true do
 
 	print RESET_WINS
 	print CLS
-	print " " * 29                            + CYAN + DOUBLE + "TwitBeeb\n\r"
 	print YELLOW + '%.28s' % SEARCH.ljust(28) + CYAN + DOUBLE + "TwitBeeb\n\r"
+	print " " * 29                            + CYAN + DOUBLE + "TwitBeeb\n\r"
 	print SET_TEXT_WIN + 0.chr + 24.chr + 39.chr + 2.chr
 
 	log.info("Searching for Tweets")	
@@ -73,7 +77,7 @@ while true do
 	lines = []
 	tweets = JSON.parse open("http://search.twitter.com/search.json?q=#{escape(SEARCH)}&result_type=recent&rpp=20").read
 	tweets['results'].each { |res|
-		lines << GREEN + "#{res['from_user']}:" + WHITE + "#{res['text'].gsub(/[\r\n\x80-\xff]/,"")}"
+		lines << GREEN + "#{res['from_user']}:" + WHITE + "#{res['text'].gsub(/[^0-9A-Za-z -_,\.\?\#@;:\+\(\)\*&\^%\$£"!'~<>\/\\]/, "")}"
 	}
 
 	# Split search results at 40 chars for Mode 7
@@ -98,8 +102,8 @@ while true do
 
 	# Get input char and deal with it appropriately
 	readstr = ""
-	while ch = STDIN.getc do
-		#STDERR.puts "#{ch.inspect} #{ch.chr}"
+	while ch = STDIN.getc.ord do
+		#STDERR.puts "#{ch} #{ch.inspect} #{ch.chr}"
 		char_add = ""
 		if ch == 127 then
 			# delete
@@ -109,7 +113,7 @@ while true do
 			end
 		elsif ch == 96 then
 			# pound sign
-			char_add = "£"
+			char_add = '£'
 		elsif ch == 27 then
 			# escape
 			readstr = ""
