@@ -2,7 +2,7 @@
 
 # A Twitter OAuth Class
 # by Barney Livingston
-# 2012-05-31
+# 2013-06-14
 
 require 'uri'
 require 'hmac-sha1'
@@ -14,7 +14,6 @@ class TwitterOauth
 
 	@@DOMAIN="api.twitter.com"
 	@@DEBUG=false
-
 
 	attr_accessor :oauth_token, :oauth_token_secret
 
@@ -52,8 +51,7 @@ class TwitterOauth
 		elsif method == "GET" then
 			return http.get(path + "?" + body_str, { 'Authorization' => auth_header })
 		else
-			puts "ERROR: bad HTTP method: #{method}"
-			exit 1
+			raise "Bad HTTP method: #{method}"
 		end
 	end
 
