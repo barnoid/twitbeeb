@@ -5,7 +5,7 @@
 # 2013-06-14
 
 require 'uri'
-require 'hmac-sha1'
+require 'openssl'
 require 'base64'
 require 'net/https'
 require 'time'
@@ -86,8 +86,9 @@ class TwitterOauth
 				escape(key) + "=" +
 				escape(all_params[key])
 			}.join("&"))
-			puts sign_string if @@DEBUG
-		return Base64.encode64(HMAC::SHA1.digest(sign_key, sign_string)).chomp
+		puts sign_string if @@DEBUG
+		digest = OpenSSL::Digest::Digest.new('sha1')
+		return Base64.encode64(OpenSSL::HMAC.digest(digest, sign_key, sign_string)).chomp
 	end
 
 	def escape(str)
