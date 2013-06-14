@@ -23,7 +23,7 @@ OAUTH_TOKEN=""
 OAUTH_TOKEN_SECRET=""
 require "twitbeeb_oauth_params"
 
-SEARCH = "#mmfbrs"
+SEARCH = "bristolhackspc"
 SUFFIX = " #{SEARCH}"
 # Derby Old Silk Mill:
 #LAT = 52.925838
@@ -75,9 +75,9 @@ while true do
 
 	# Search Twitter into array
 	lines = []
-	tweets = JSON.parse open("http://search.twitter.com/search.json?q=#{escape(SEARCH)}&result_type=recent&rpp=20").read
-	tweets['results'].each { |res|
-		lines << GREEN + "#{res['from_user']}:" + WHITE + "#{res['text'].gsub(/[^0-9A-Za-z -_,\.\?\#@;:\+\(\)\*&\^%\$£"!'~<>\/\\]/, "")}"
+	tweets = JSON.parse(twitter.search(SEARCH).body)
+	tweets['statuses'].each { |res|
+		lines << GREEN + "#{res['user']['screen_name']}:" + WHITE + "#{res['text'].gsub(/[^0-9A-Za-z -_,\.\?\#@;:\+\(\)\*&\^%\$£"!'~<>\/\\]/, "")}"
 	}
 
 	# Split search results at 40 chars for Mode 7
