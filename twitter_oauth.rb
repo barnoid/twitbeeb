@@ -15,6 +15,7 @@ class TwitterOauth
 	@@DOMAIN="api.twitter.com"
 	@@DEBUG=false
 
+
 	attr_accessor :oauth_token, :oauth_token_secret
 
 	def initialize(consumer_key, consumer_secret, oauth_token="", oauth_token_secret="")
@@ -24,13 +25,13 @@ class TwitterOauth
 		@oauth_token_secret = oauth_token_secret
 	end
 
-	def request(path, oauth_token_secret="", params={}, body={})
+	def request(path, oauth_token_secret="", params={}, body={}, method="POST")
 		params["oauth_consumer_key"] = @consumer_key
 		params["oauth_signature_method"] = "HMAC-SHA1"
 		params["oauth_version"] = "1.0"
 		params["oauth_nonce"] = Base64.encode64("TwitterOAuth " + Time.now.to_f.to_s).chomp
 		params["oauth_timestamp"] = Time.now.to_i.to_s
-		params["oauth_signature"] = signreq("#{@consumer_secret}&#{oauth_token_secret}", "POST", "https://#{@@DOMAIN}#{path}", params, body)
+		params["oauth_signature"] = signreq("#{@consumer_secret}&#{oauth_token_secret}", method, "https://#{@@DOMAIN}#{path}", params, body)
 
 		auth_header = "OAuth " + params.keys.sort.map { |key|
 			escape(key) + "=\"" + escape(params[key]) + "\""
@@ -46,15 +47,26 @@ class TwitterOauth
 		http.use_ssl = true
 		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-		return http.post(path, body_str, { 'Authorization' => auth_header })
+		if method == "POST" then
+			return http.post(path, body_str, { 'Authorization' => auth_header })
+		elsif method == "GET" then
+			return http.get(path + "?" + body_str, { 'Authorization' => auth_header })
+		else
+			puts "ERROR: bad HTTP method: #{method}"
+			exit 1
+		end
 	end
 
 	def tweet(text)
-		request("/1/statuses/update.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "status" => text })
+		request("/1.1/statuses/update.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "status" => text })
 	end
 
 	def tweet_geo(text, lat, long)
-		request("/1/statuses/update.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "status" => text, "lat" => lat.to_s, "long" => long.to_s, "display_coordinates" => "true" })
+		request("/1.1/statuses/update.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "status" => text, "lat" => lat.to_s, "long" => long.to_s, "display_coordinates" => "true" })
+	end
+
+	def search(q)
+		request("/1.1/search/tweets.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "q" => q }, "GET")
 	end
 
 	def get_request_token()
