@@ -55,16 +55,20 @@ class TwitterOauth
 		end
 	end
 
-	def tweet(text)
-		request("/1.1/statuses/update.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "status" => text })
+	def tweet(text, params = {})
+		request("/1.1/statuses/update.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "status" => text }.merge(params))
 	end
 
 	def tweet_geo(text, lat, long)
-		request("/1.1/statuses/update.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "status" => text, "lat" => lat.to_s, "long" => long.to_s, "display_coordinates" => "true" })
+		tweet(text, { "lat" => lat.to_s, "long" => long.to_s, "display_coordinates" => "true" })
 	end
 
-	def search(q)
-		request("/1.1/search/tweets.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "q" => q }, "GET")
+	def search(q, params = {})
+		request("/1.1/search/tweets.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "q" => q }.merge(params), "GET")
+	end
+
+	def user_timeline(user, params = {})
+		request("/1.1/statuses/user_timeline.json", @oauth_token_secret, { 'oauth_token' => @oauth_token }, { "screen_name" => user }.merge(params), "GET")
 	end
 
 	def get_request_token()
