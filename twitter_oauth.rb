@@ -45,6 +45,7 @@ class TwitterOauth
 		http = Net::HTTP.new(@@DOMAIN, 443)
 		http.use_ssl = true
 		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+		http.read_timeout = 15
 
 		if method == "POST" then
 			return http.post(path, body_str, { 'Authorization' => auth_header })
