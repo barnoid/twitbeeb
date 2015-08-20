@@ -23,14 +23,17 @@ OAUTH_TOKEN=""
 OAUTH_TOKEN_SECRET=""
 require "twitbeeb_oauth_params"
 
-SEARCH = "#DMMF14"
+SEARCH = "#BMMF15"
 SUFFIX = " #{SEARCH}"
 # Derby Old Silk Mill:
-LAT = 52.925838
-LONG = -1.475765
+#LAT = 52.925838
+#LONG = -1.475765
 # Bristol M Shed
 #LAT = 51.447796
 #LONG = -2.597993
+# At-Bristol
+LAT = 51.450419
+LONG = -2.600701
 
 # BBC VDU codes
 # http://central.kaserver5.org/Kasoft/Typeset/BBC/Ch34.html
@@ -133,10 +136,10 @@ def infopage2
 	print "\n\r"
 	print WHITE + BACKGROUND + "\n\r"
 	print WHITE + BACKGROUND + " " * 10 +                "                \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Derby" + CYAN + " Mini   \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Derby" + CYAN + " Mini   \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Maker Faire   \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Maker Faire   \n\r"
+	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Bristol" + CYAN + "Mini   \n\r"
+	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Bristol" + CYAN + "Mini   \n\r"
+	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Maker  Faire   \n\r"
+	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Maker  Faire   \n\r"
 	print WHITE + BACKGROUND + " " * 10 +              "                \n\r"
 	print WHITE + BACKGROUND + "\n\r"
 	print "\n\r"
