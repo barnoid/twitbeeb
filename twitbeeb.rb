@@ -57,7 +57,10 @@ BACKGROUND = 157.chr
 
 # clean twitter text
 def clean_text(text)
-	return text.gsub(/[^0-9A-Za-z -_,\.\?\#@;:\+\(\)\*&\^%\$£"!'~<>\/\\]/, "")
+	out_txt = text.gsub(/[^0-9A-Za-z -_,\.\?\#@;:\+\(\)\*&\^%\$£"!'~<>\/\\]/, "")
+	out_txt.gsub!(/&amp;/, '&')
+	out_txt.gsub!(/&quot;/, '"')
+	return out_txt
 end
 
 $log = Logger.new('twitbeeb.log')
