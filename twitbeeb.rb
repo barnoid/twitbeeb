@@ -295,7 +295,7 @@ while true do
 		print " " * 11 + DOUBLE + YELLOW + FLASH_ON + "PLEASE WAIT" + " " * 14 + "\r\n"
 		print " " * 39 + "\r\n"
 
-		readstr << SUFFIX
+		readstr << SUFFIX if not readstr.match(/#{SUFFIX}$/)
 		$log.info("Tweeting: #{readstr}")
 
 		twitter_out = twitter.tweet_geo(readstr, LAT, LONG).body
