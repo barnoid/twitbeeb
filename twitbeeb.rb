@@ -69,16 +69,14 @@ end
 def print_list(list, cols, rows)
 	# Wrap lines at cols
 	lines_wrap = []
-	list.each { |text|
-		text.scan(/.{1,#{cols}}(?:\s+|\Z|-)/).each { |part|
+	list.each do |text|
+		text.scan(/.{1,#{cols}}(?:\s+|\Z|-)/).each do |part|
 			lines_wrap << part
-		}
-	}
+		end
+	end
 	# Print rows lines
-	c = 0
-	while c < lines_wrap.size and c < rows do
+	[lines_wrap.size, rows].min.times do |c|
 		print lines_wrap[c] + "\r\n"
-		c += 1
 	end
 end
 
