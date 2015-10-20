@@ -63,6 +63,22 @@ def clean_text(text)
 	return out_txt
 end
 
+def print_list(list, cols, rows)
+	# Wrap lines at cols
+	lines_wrap = []
+	list.each { |text|
+		text.scan(/.{1,#{cols}}(?:\s+|\Z|-)/).each { |part|
+			lines_wrap << part
+		}
+	}
+	# Print rows lines
+	c = 0
+	while c < lines_wrap.size and c < rows do
+		print lines_wrap[c] + "\r\n"
+		c += 1
+	end
+end
+
 $log = Logger.new('twitbeeb.log')
 $log.datetime_format = "%Y-%m-%d %H:%M:%S"
 $log.level = Logger::DEBUG
@@ -88,20 +104,8 @@ def twitlist(twitter)
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Split search results at 40 chars for Mode 7
-	lines_split = []
-	lines.each { |line|
-		line.scan(/.{39}|.+/).each { |part|
-			lines_split << part
-		}
-	}
-
-	# Print 22 lines
-	c = 0
-	while c < lines_split.size and c < 22 do
-		print lines_split[c] + "\r\n"
-		c += 1
-	end
+	# Wrap at 40 cols, print 22 lines.
+	print_list(lines, 40, 22)
 
 	# Prompt
 	print ">"
@@ -128,20 +132,8 @@ def twitlist_alt(twitter)
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Split search results at 40 chars for Mode 7
-	lines_split = []
-	lines.each { |line|
-		line.scan(/.{39}|.+/).each { |part|
-			lines_split << part
-		}
-	}
-
-	# Print 20 lines
-	c = 0
-	while c < lines_split.size and c < 20 do
-		print lines_split[c] + "\r\n"
-		c += 1
-	end
+	# Wrap at 40 cols, print 20 lines.
+	print_list(lines, 40, 20)
 end
 
 
