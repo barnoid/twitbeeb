@@ -71,7 +71,7 @@ def print_list(list, cols, rows)
 	lines_wrap = []
 	list.each do |text|
 		text.scan(/.{1,#{cols}}(?:\s+|\Z|-)/).each do |part|
-			lines_wrap << part
+			lines_wrap << part.gsub(/\s+$/, '')
 		end
 	end
 	# Print rows lines
