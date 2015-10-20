@@ -57,9 +57,12 @@ BACKGROUND = 157.chr
 
 # clean twitter text
 def clean_text(text)
+	# only allow safe chars
 	out_txt = text.gsub(/[^0-9A-Za-z -_,\.\?\#@;:\+\(\)\*&\^%\$£"!'~<>\/\\]/, "")
-	out_txt.gsub!(/&amp;/, '&')
+	out_txt.gsub!(/&amp;/, '&') # fix some HTML entities
 	out_txt.gsub!(/&quot;/, '"')
+	out_txt.gsub!(/https?:\/\/[\S]+/, '') # remove this to allow URLs
+	out_txt.gsub!(/\s\s+/, ' ') # collapse multiple spaces
 	return out_txt
 end
 
