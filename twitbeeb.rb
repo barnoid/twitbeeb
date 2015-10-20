@@ -105,8 +105,8 @@ def twitlist(twitter)
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 40 cols, print 22 lines.
-	print_list(lines, 40, 22)
+	# Wrap at 39 cols, print 22 lines.
+	print_list(lines, 39, 22)
 
 	# Prompt
 	print ">"
@@ -121,6 +121,7 @@ def twitlist_alt(twitter)
 	print "TwitBeeb has a twin! Today it is at the\n\r"
 	print "RISC OS London Show. Send it a message\n\r"
 	print "by tweeting to @burrBeep\n\r"
+	print "\n\r"
 	print SET_TEXT_WIN + 0.chr + 24.chr + 39.chr + 5.chr
 
 	$log.info("Searching for Tweets")
@@ -133,8 +134,8 @@ def twitlist_alt(twitter)
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 40 cols, print 20 lines.
-	print_list(lines, 40, 20)
+	# Wrap at 39 cols, print 19 lines.
+	print_list(lines, 39, 19)
 end
 
 
