@@ -82,7 +82,7 @@ def twitlist(twitter)
 	# Search Twitter into array
 	lines = []
 	# Search for the hashtag or for tweets directed at my account
-	tweets = JSON.parse(twitter.search("#{SEARCH} OR @#{MY_ACCT}").body)
+	tweets = JSON.parse(twitter.search("#{SEARCH} OR @#{MY_ACCT}", { 'result_type' => 'recent' }).body)
 	$log.debug(tweets)
 	tweets['statuses'].each { |res|
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
@@ -122,7 +122,7 @@ def twitlist_alt(twitter)
 
 	# Search Twitter into array
 	lines = []
-	tweets = JSON.parse(twitter.search("@burrBeep").body)
+	tweets = JSON.parse(twitter.search("@burrBeep", { 'result_type' => 'recent' }).body)
 	$log.debug(tweets)
 	tweets['statuses'].each { |res|
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
