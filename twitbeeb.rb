@@ -110,7 +110,7 @@ def twitlist(twitter)
 	print_list(lines, 39, 22)
 
 	# Prompt
-	print ">"
+	print CYAN + ">"
 end
 
 def twitlist_alt(twitter)
