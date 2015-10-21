@@ -135,8 +135,13 @@ def twitlist_alt(twitter)
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 39 cols, print 19 lines.
-	print_list(lines, 39, 19)
+	# Wrap at 39 cols, print 12 lines.
+	print_list(lines, 39, 12)
+	#Added Press Key Msg as no user input possible here.
+        print "\n\r"
+        print "\n\r"
+        print " " * 6 + DOUBLE + GREEN + FLASH_ON + "PRESS ANY KEY TO TWEET\r\n"
+        print " " * 6 + DOUBLE + GREEN + FLASH_ON + "PRESS ANY KEY TO TWEET\r\n"
 end
 
 
