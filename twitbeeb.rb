@@ -39,6 +39,7 @@ LONG = -1.475765
 # BBC VDU codes
 # http://central.kaserver5.org/Kasoft/Typeset/BBC/Ch34.html
 # http://central.kaserver5.org/Kasoft/Typeset/BBC/Ch28.html
+BEEP = 7.chr
 CLS = 12.chr
 RESET_WINS = 26.chr
 SET_TEXT_WIN = 28.chr
@@ -288,7 +289,9 @@ while true do
 		print " " * 11 + DOUBLE + YELLOW + FLASH_ON + "PLEASE WAIT" + " " * 14 + "\r\n"
 		print " " * 11 + DOUBLE + YELLOW + FLASH_ON + "PLEASE WAIT" + " " * 14 + "\r\n"
 		print " " * 39 + "\r\n"
-
+                print BEEP
+                sleep 0.5
+                print BEEP
 		readstr << SUFFIX if not readstr.match(/#{SUFFIX}$/)
 		$log.info("Tweeting: #{readstr}")
 
