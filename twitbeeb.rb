@@ -103,7 +103,7 @@ def twitlist(twitter)
 	tweets = JSON.parse(twitter.search("#{SEARCH} OR @#{MY_ACCT}", { 'result_type' => 'recent' }).body)
 	$log.debug(tweets)
 	tweets['statuses'].each { |res|
-		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
+		lines << GREEN + "@#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
 	# Wrap at 39 cols, print 22 lines.
@@ -132,7 +132,7 @@ def twitlist_alt(twitter)
 	tweets = JSON.parse(twitter.search("@burrBeep", { 'result_type' => 'recent' }).body)
 	$log.debug(tweets)
 	tweets['statuses'].each { |res|
-		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
+		lines << GREEN + "@#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
 	# Wrap at 39 cols, print 12 lines.
