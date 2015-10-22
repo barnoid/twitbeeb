@@ -106,11 +106,12 @@ def twitlist(twitter)
 		lines << GREEN + "@#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 39 cols, print 22 lines.
-	print_list(lines, 39, 22)
-
+	# Wrap at 39 cols, print 19 lines.
+	print_list(lines, 39, 19)
+        print "\n\r"
+        print GFXCYAN + LINE * 39 + "\n\r"
 	# Prompt
-	print CYAN + ">"
+	print ">"
 end
 
 def twitlist_alt(twitter)
