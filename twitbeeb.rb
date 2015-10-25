@@ -44,6 +44,7 @@ CLS = 12.chr
 RESET_WINS = 26.chr
 SET_TEXT_WIN = 28.chr
 MOVE_TEXT_CURSOR = 31.chr
+LINE = 44.chr
 RED = 129.chr
 GREEN = 130.chr
 YELLOW = 131.chr
@@ -54,6 +55,7 @@ WHITE = 135.chr
 FLASH_ON = 136.chr
 FLASH_OFF = 137.chr
 DOUBLE = 141.chr
+GFXCYAN = 150.chr
 BACKGROUND = 157.chr
 
 # clean twitter text
