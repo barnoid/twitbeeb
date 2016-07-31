@@ -24,17 +24,20 @@ OAUTH_TOKEN_SECRET=""
 require "twitbeeb_oauth_params"
 MY_ACCT = "twitbeeb"
 
-SEARCH = "#DMMF15"
+SEARCH = "@bristolhackspc"
 SUFFIX = " #{SEARCH}"
 # Derby Old Silk Mill:
-LAT = 52.925838
-LONG = -1.475765
+#LAT = 52.925838
+#LONG = -1.475765
 # Bristol M Shed
 #LAT = 51.447796
 #LONG = -2.597993
 # At-Bristol
 #LAT = 51.450419
 #LONG = -2.600701
+# Bristol Hackspace
+LAT = 51.442991
+LONG = -2.5938372
 
 # BBC VDU codes
 # http://central.kaserver5.org/Kasoft/Typeset/BBC/Ch34.html
@@ -105,8 +108,8 @@ def twitlist(twitter)
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 40 cols, print 22 lines.
-	print_list(lines, 40, 22)
+	# Wrap at 39 cols, print 22 lines.
+	print_list(lines, 39, 22)
 
 	# Prompt
 	print ">"
@@ -121,6 +124,7 @@ def twitlist_alt(twitter)
 	print "TwitBeeb has a twin! Today it is at the\n\r"
 	print "RISC OS London Show. Send it a message\n\r"
 	print "by tweeting to @burrBeep\n\r"
+	print "\n\r"
 	print SET_TEXT_WIN + 0.chr + 24.chr + 39.chr + 5.chr
 
 	$log.info("Searching for Tweets")
@@ -133,8 +137,8 @@ def twitlist_alt(twitter)
 		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 40 cols, print 20 lines.
-	print_list(lines, 40, 20)
+	# Wrap at 39 cols, print 19 lines.
+	print_list(lines, 39, 19)
 end
 
 
@@ -172,22 +176,22 @@ def infopage2
 	print YELLOW + '%.28s' % SEARCH.ljust(28) + CYAN + DOUBLE + "TwitBeeb\n\r"
 	print " " * 29                            + CYAN + DOUBLE + "TwitBeeb\n\r"
 	print "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
 	print "\n\r"
+	print YELLOW + DOUBLE + "          BRISTOL HACKSPACE\n\r"
+	print YELLOW + DOUBLE + "          BRISTOL HACKSPACE\n\r"
 	print "\n\r"
-	print "\n\r"
-	print "\n\r"
-	print WHITE + BACKGROUND + "\n\r"
-	print WHITE + BACKGROUND + " " * 10 +                "                \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Derby" + CYAN + " Mini   \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Derby" + CYAN + " Mini   \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Maker Faire   \n\r"
-	print WHITE + BACKGROUND + " " * 10 + RED + DOUBLE + "Maker Faire   \n\r"
-	print WHITE + BACKGROUND + " " * 10 +              "                \n\r"
-	print WHITE + BACKGROUND + "\n\r"
-	print "\n\r"
-	print "\n\r"
-	print "\n\r"
-	print "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
+	print RED + DOUBLE + "H " * 18 + "\n\r"
 	print "\n\r"
 	print "\n\r"
 	print " " * 6 + DOUBLE + YELLOW + FLASH_ON + "PRESS ANY KEY TO TWEET\r\n"
@@ -204,9 +208,9 @@ dispcounter = 0
 DISP_TWIT1 = 0
 DISP_TWIT2 = 200
 DISP_INFO1 = 1200
-DISP_TWIT_ALT = 1800
-DISP_INFO2 = 2400
-DISP_RESET = 3000
+#DISP_TWIT_ALT = 1800
+DISP_INFO2 = 1800
+DISP_RESET = 2400
 
 # Display thread
 Thread.new do
@@ -217,7 +221,7 @@ Thread.new do
 			twitlist(twitter) if dispcounter == DISP_TWIT1
 			twitlist(twitter) if dispcounter == DISP_TWIT2
 			infopage1 if dispcounter == DISP_INFO1
-			twitlist_alt(twitter) if dispcounter == DISP_TWIT_ALT
+			#twitlist_alt(twitter) if dispcounter == DISP_TWIT_ALT
 			infopage2 if dispcounter == DISP_INFO2
 			dispcounter += 1
 		end
