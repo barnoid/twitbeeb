@@ -42,10 +42,12 @@ LONG = -2.5938372
 # BBC VDU codes
 # http://central.kaserver5.org/Kasoft/Typeset/BBC/Ch34.html
 # http://central.kaserver5.org/Kasoft/Typeset/BBC/Ch28.html
+BEEP = 7.chr
 CLS = 12.chr
 RESET_WINS = 26.chr
 SET_TEXT_WIN = 28.chr
 MOVE_TEXT_CURSOR = 31.chr
+LINE = 44.chr
 RED = 129.chr
 GREEN = 130.chr
 YELLOW = 131.chr
@@ -56,6 +58,7 @@ WHITE = 135.chr
 FLASH_ON = 136.chr
 FLASH_OFF = 137.chr
 DOUBLE = 141.chr
+GFXCYAN = 150.chr
 BACKGROUND = 157.chr
 
 # clean twitter text
@@ -105,12 +108,13 @@ def twitlist(twitter)
 	tweets = JSON.parse(twitter.search("#{SEARCH} OR @#{MY_ACCT}", { 'result_type' => 'recent' }).body)
 	$log.debug(tweets)
 	tweets['statuses'].each { |res|
-		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
+		lines << GREEN + "@#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 39 cols, print 22 lines.
-	print_list(lines, 39, 22)
-
+	# Wrap at 39 cols, print 19 lines.
+	print_list(lines, 39, 19)
+        print "\n\r"
+        print GFXCYAN + LINE * 39 + "\n\r"
 	# Prompt
 	print ">"
 end
@@ -134,11 +138,16 @@ def twitlist_alt(twitter)
 	tweets = JSON.parse(twitter.search("@burrBeep", { 'result_type' => 'recent' }).body)
 	$log.debug(tweets)
 	tweets['statuses'].each { |res|
-		lines << GREEN + "#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
+		lines << GREEN + "@#{clean_text(res['user']['screen_name'])}:" + WHITE + "#{clean_text(res['text'])}"
 	}
 
-	# Wrap at 39 cols, print 19 lines.
-	print_list(lines, 39, 19)
+	# Wrap at 39 cols, print 12 lines.
+	print_list(lines, 39, 12)
+	#Added Press Key Msg as no user input possible here.
+        print "\n\r"
+        print "\n\r"
+        print " " * 6 + DOUBLE + GREEN + FLASH_ON + "PRESS ANY KEY TO TWEET\r\n"
+        print " " * 6 + DOUBLE + GREEN + FLASH_ON + "PRESS ANY KEY TO TWEET\r\n"
 end
 
 
@@ -291,7 +300,9 @@ while true do
 		print " " * 11 + DOUBLE + YELLOW + FLASH_ON + "PLEASE WAIT" + " " * 14 + "\r\n"
 		print " " * 11 + DOUBLE + YELLOW + FLASH_ON + "PLEASE WAIT" + " " * 14 + "\r\n"
 		print " " * 39 + "\r\n"
-
+                print BEEP
+                sleep 0.5
+                print BEEP
 		readstr << SUFFIX if not readstr.match(/#{SUFFIX}$/)
 		$log.info("Tweeting: #{readstr}")
 
